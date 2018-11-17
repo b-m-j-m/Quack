@@ -19,43 +19,33 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class ChatPage {
 
   public withUser;
+  public messages;
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public afAuth: AngularFireAuth) {
 
     let userId = afAuth.auth.currentUser.uid;
     this.withUser = navParams.data;
 
     let chatId = userId < this.withUser ? `${userId}-${this.withUser}` : `${this.withUser}-${userId}`;
-    let chat = db.collection("messages").where("chatId", "==", chatId)
-
-    chat.orderBy("time", "desc").limit(100).get()
-      .then(snapshot => {
-        this.loadMessages(snapshot.docs.map(d => d.data()))
+    let chat = db.collection("messages").get()
+      .subscribe(snapshots => {
+        let messages = snapshots.docs.map(d => d.data()).sort((a, b) => a.time < b.time).slice(0, 100)
+        this.updateMessages(messages);
       })
-
-    chat.onSnapshot(snapshot => {
-        let messages = snapshot.docChanges.filter(c => c.type == "added")
-        this.appendMessages(messages.map(m => m.doc.data()));
-      })
-
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChatPage');
   }
 
-  loadMessages(messages) {
-    // ...
+  updateMessages(messages) {
+    this.messages = messages;
   }
 
-  appendMessages(messages) {
-    // ...
-  }
-
-  sendMessage(text, toUser) {
+  sendMessage(text) {
 
     let userId = this.afAuth.auth.currentUser.uid;
 
-    let chatId = userId < toUser ? `${userId}-${toUser}` : `${toUser}-${userId}`;
+    let chatId = userId < this.withUser ? `${userId}-${this.withUser}` : `${this.withUser}-${userId}`;
 
     let message = {
       body: text,
@@ -64,9 +54,7 @@ export class ChatPage {
       chatId
     }
 
-    let chat = this.db.collection("messages").where("chatId", "==", chatId);
-
-    chat.add(message);
+    this.db.collection("messages").add(message);
 
   }
 

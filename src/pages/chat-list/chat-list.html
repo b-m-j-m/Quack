@@ -14,31 +14,15 @@
 
 
 <ion-content padding>
-  
+
   <ion-list>
 
-    <ion-item (click)="onOpenChat()">
+    <ion-item *ngFor="let chat of chats" (click)="onOpenChat(chat.id)">
       <ion-avatar item-start>
         <img src="assets/imgs/avatar-horst.jpg">
       </ion-avatar>
-      <h2>Horst</h2>
-      <p>War ein nettes Gespräch.</p>
-    </ion-item>
-
-    <ion-item (click)="onOpenChat()">
-      <ion-avatar item-start>
-        <img src="assets/imgs/avatar-peter.png">
-      </ion-avatar>
-      <h2>Peter</h2>
-      <p>Lorem ipsum dolor.</p>
-    </ion-item>
-
-    <ion-item (click)="onOpenChat()">
-      <ion-avatar item-start>
-        <img src="assets/imgs/avatar-jens.png">
-      </ion-avatar>
-      <h2>Jens</h2>
-      <p>Lorem ipsum dolor.</p>
+      <h2>{{chat.name}}</h2>
+      <p>{{chat.lastMessage}}</p>
     </ion-item>
 
   </ion-list>

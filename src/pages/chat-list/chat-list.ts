@@ -19,9 +19,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class ChatListPage {
 
+  public chats;
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public afAuth: AngularFireAuth) {
 
-    let doc = this.db.collection("users").doc(afAuth.auth.currentUser.uid).collection("matchings").get()
+    this.db.collection("users").doc(afAuth.auth.currentUser.uid).collection("matchings").get()
       .subscribe(snapshot => {
         let chats = snapshot.docs.map(d => ({
           id: d.id,
@@ -40,7 +41,7 @@ export class ChatListPage {
   }
 
   updateChatList(chats) {
-    // ...
+    this.chats = chats;
   }
 
 }
