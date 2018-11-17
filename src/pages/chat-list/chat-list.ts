@@ -35,8 +35,8 @@ export class ChatListPage {
     console.log('ionViewDidLoad ChatListPage');
   }
 
-  onOpenChat() {
-    this.navCtrl.push(ChatPage);
+  onOpenChat(withUser) {
+    this.navCtrl.push(ChatPage, withUser);
   }
 
   updateChatList(chats) {

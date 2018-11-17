@@ -18,12 +18,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class ChatPage {
 
+  public withUser;
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public afAuth: AngularFireAuth) {
 
     let userId = afAuth.auth.currentUser.uid;
-    let withUser = "";
+    this.withUser = navParams.data;
 
-    let chatId = userId < withUser ? `${userId}-${withUser}` : `${withUser}-${userId}`;
+    let chatId = userId < this.withUser ? `${userId}-${this.withUser}` : `${this.withUser}-${userId}`;
     let chat = db.collection("messages").where("chatId", "==", chatId)
 
     chat.orderBy("time", "desc").limit(100).get()
