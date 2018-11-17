@@ -4,24 +4,25 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFirestore } from '@angular/fire/firestore';
-import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
-import { FCM } from '@ionic-native/fcm';
+//import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
+//import { FCM } from '@ionic-native/fcm';
 
 import { MainPage } from '../pages/main/main';
+import { LoginPage } from '../pages/login/login';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = MainPage;
+  rootPage:any = LoginPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, geolocation: BackgroundGeolocation, db: AngularFirestore, fcm: FCM) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, /*geolocation: BackgroundGeolocation,*/ db: AngularFirestore /*, fcm: FCM*/) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
 
-      geolocation.configure({
+      /*geolocation.configure({
             desiredAccuracy: 10,
             stationaryRadius: 20,
             distanceFilter: 30,
@@ -41,9 +42,9 @@ export class MyApp {
           }, {merge: true});
 
           geolocation.finish();
-        });
+        });*/
 
-        fcm.getToken().then(token => {
+       /* fcm.getToken().then(token => {
           db.collection('users').doc("kilian").set({
             messagingToken: token
           }, {merge: true});
@@ -52,7 +53,7 @@ export class MyApp {
           db.collection('users').doc("kilian").set({
             messagingToken: token
           }, {merge: true});
-        });
+        });*/
     });
   }
 }

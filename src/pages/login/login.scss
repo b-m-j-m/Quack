@@ -1,0 +1,54 @@
+page-login {
+   
+    
+    .login-header-container {
+        height: 40vh;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            transform: translateX(-50%) translateY(-50%);
+            filter: blur(10px)
+        }
+        .vid-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0,0,0,0.3);
+        }
+    }
+
+    .login-content-container {
+        height: 60vh;
+        position: absolute;
+        top: 40vh;
+        left: 0;
+        padding: 1em;
+        background: #fff;
+        .welcome-to-quack {
+            font-size: 2em;
+        }
+        .intro-to-quack {
+            font-size: 1.5em;
+        }
+        .login-btn-container {
+            position: absolute;
+            left: 0;
+            bottom: 1em;
+            width: 100%;
+            text-align: center;
+        }
+    }
+    
+}

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+//import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 
 /**
  * Generated class for the MainPage page.
@@ -23,7 +23,7 @@ export class MainPage {
   // 2 -> match found
   public state = 1;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, db: AngularFirestore, geolocation: BackgroundGeolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, db: AngularFirestore/*, geolocation: BackgroundGeolocation*/) {
 
     events.subscribe('modeChange', (newState) => {
 
@@ -32,9 +32,9 @@ export class MainPage {
       }, {merge: true});
 
       if (newState == 1) {
-        geolocation.start();
+      //  geolocation.start();
       } else {
-        geolocation.stop();
+      //geolocation.stop();
       }
 
       this.state = newState;

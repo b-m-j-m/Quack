@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, LoadingCmp } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -19,7 +19,11 @@ import { ChatListPage } from '../pages/chat-list/chat-list';
 import { ChatPage } from '../pages/chat/chat';
 import { ComponentsModule } from '../components/components.module';
 
+// GEOLOCATION
+// import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+
 import { FIREBASE_CONFIG } from './firebase.credentials';
+import { LoginPage } from '../pages/login/login';
 
 
 @NgModule({
@@ -28,7 +32,8 @@ import { FIREBASE_CONFIG } from './firebase.credentials';
     MainPage,
     ProfilePage,
     ChatListPage,
-    ChatPage
+    ChatPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -46,11 +51,13 @@ import { FIREBASE_CONFIG } from './firebase.credentials';
     MainPage,
     ProfilePage,
     ChatListPage,
-    ChatPage
+    ChatPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+   // BackgroundGeolocation
 
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

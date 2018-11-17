@@ -1,5 +1,7 @@
 {
   "name": "hackatumApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
