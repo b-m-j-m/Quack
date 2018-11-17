@@ -21,8 +21,8 @@ export class ChatListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public afAuth: AngularFireAuth) {
 
-    return this.db.collection("users").doc(afAuth.auth.currentUser.uid).collection("matches")
-      .onSnapshot(snapshot => {
+    let doc = this.db.collection("users").doc(afAuth.auth.currentUser.uid).collection("matchings").get()
+      .subscribe(snapshot => {
         let chats = snapshot.docs.map(d => ({
           id: d.id,
           ...d.data()

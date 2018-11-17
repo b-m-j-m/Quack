@@ -24,7 +24,7 @@ export class ChatPage {
     let withUser = "";
 
     let chatId = userId < withUser ? `${userId}-${withUser}` : `${withUser}-${userId}`;
-    let chat = db.collection("chat").doc(chatId).collection("messages");
+    let chat = db.collection("messages").where("chatId", "==", chatId)
 
     chat.orderBy("time", "desc").limit(100).get()
       .then(snapshot => {
@@ -54,14 +54,16 @@ export class ChatPage {
 
     let userId = this.afAuth.auth.currentUser.uid;
 
+    let chatId = userId < toUser ? `${userId}-${toUser}` : `${toUser}-${userId}`;
+
     let message = {
       body: text,
       sender: userId,
-      time: new Date()
+      time: new Date(),
+      chatId
     }
 
-    let chatId = userId < toUser ? `${userId}-${toUser}` : `${toUser}-${userId}`;
-    let chat = this.db.collection("chat").doc(chatId).collection("messages");
+    let chat = this.db.collection("messages").where("chatId", "==", chatId);
 
     chat.add(message);
 
