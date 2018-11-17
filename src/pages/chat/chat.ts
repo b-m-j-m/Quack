@@ -18,9 +18,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class ChatPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public auth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public afAuth: AngularFireAuth) {
 
-    let userId = auth.currentUser.uid;
+    let userId = afAuth.auth.currentUser.uid;
     let withUser = "";
 
     let chatId = userId < withUser ? `${userId}-${withUser}` : `${withUser}-${userId}`;
@@ -52,7 +52,7 @@ export class ChatPage {
 
   sendMessage(text, toUser) {
 
-    let userId = this.auth.currentUser.uid;
+    let userId = this.afAuth.auth.currentUser.uid;
 
     let message = {
       body: text,

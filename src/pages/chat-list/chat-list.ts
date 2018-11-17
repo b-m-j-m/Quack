@@ -19,9 +19,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class ChatListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public auth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public afAuth: AngularFireAuth) {
 
-    return this.db.collection("users").doc(auth.currentUser.uid).collection("matches")
+    return this.db.collection("users").doc(afAuth.auth.currentUser.uid).collection("matches")
       .onSnapshot(snapshot => {
         let chats = snapshot.docs.map(d => ({
           id: d.id,
