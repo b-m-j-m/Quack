@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+import { MainPage } from '../main/main';
 
 /**
  * Generated class for the LoginPage page.
@@ -27,12 +28,14 @@ export class LoginPage {
   }
 
   onLogin() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(function(result) {
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((result) => {
 
       var token = result.credential.accessToken;
       var user = result.user;
 
       console.log(token, user);
+
+      this.navCtrl.setRoot(MainPage);
 
     }).catch(function(error) {
       console.log(error);
