@@ -7,9 +7,17 @@
 
 <ion-content padding>
 
+  <video autoplay loop src="assets/vid/login.mp4"></video>
+  <div class="vid-overlay">
+   
+  </div>  
+
   <div class="login-header-container">
-      <video autoplay loop src="assets/vid/login.mp4"></video>
-      <div class="vid-overlay"></div>
+     
+    <div class="logo-container">
+      <img  class="logo-img" src="assets/imgs/logo.png">
+    </div>
+
   </div>
 
   <div class="login-content-container">
@@ -19,7 +27,7 @@
     </p>
       
     <p class="intro-to-quack">
-      Quak enables you to get in touch with the people on public transport around you, that you otherwise never would talk to.
+      Quack enables you to get in touch with the people on public transport around you, that you otherwise never would talk to.
     </p>
 
     <p class="intro-to-quack">
@@ -27,7 +35,7 @@
     </p>
 
     <div class="login-btn-container">
-      <button ion-button icon-left round large color="primary"><ion-icon name="logo-google"></ion-icon>sign in</button>
+      <button (click)="onLogin()" ion-button icon-left round large color="primary"><ion-icon name="logo-google"></ion-icon>sign in</button>
     </div>
   </div>
 </ion-content>
