@@ -1,0 +1,6 @@
+page-chat-list {
+    .list .item-block .item-inner, .list > .item-block:first-child, .list > .item-block:last-child{
+        border: 0;
+        border-bottom: 0;
+    }
+}

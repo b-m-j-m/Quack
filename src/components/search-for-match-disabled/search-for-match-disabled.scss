@@ -1,0 +1,28 @@
+search-for-match-disabled {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: color($colors, light);
+
+    .information-text {
+        font-weight: bold;
+        text-align: center;
+        position: absolute;
+        left: 0%;
+        top: 68%;
+        width: 100%;
+        color: color($colors, primary);
+        font-size: 1.2em;
+    }
+
+    .enable-matchsearch {
+        text-align: center;
+        position: absolute;
+        left: 0%;
+        top: 90%;
+        width: 100%;
+     }
+
+}

@@ -1,0 +1,19 @@
+<!--
+  Generated template for the MainPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <navigation></navigation>
+</ion-header>
+
+
+<ion-content padding>
+
+  
+  <search-for-match-disabled *ngIf="state == 0"></search-for-match-disabled>
+  <search-for-match *ngIf="state == 1"></search-for-match>
+  <match-found *ngIf="state == 2"></match-found>
+
+</ion-content>
