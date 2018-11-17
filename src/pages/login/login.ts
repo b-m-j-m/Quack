@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 
@@ -18,7 +18,7 @@ import { auth } from 'firebase/app';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public afAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public afAuth: AngularFireAuth, public db: AngularFirestore) {
 
   }
 
@@ -29,10 +29,9 @@ export class LoginPage {
   onLogin() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(function(result) {
 
-      var token = result.credential.accessToken;
-      var user = result.user;
-
-      console.log(token, user);
+      this.db.collection("users").doc(result.user.uid).set({
+        name: result.user.displayName, awaitingMatch: false, profile: ""
+      })
 
     }).catch(function(error) {
       console.log(error);
