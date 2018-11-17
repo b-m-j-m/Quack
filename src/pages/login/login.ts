@@ -20,7 +20,11 @@ import { MainPage } from '../main/main';
 export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public afAuth: AngularFireAuth, public db: AngularFirestore) {
-
+    afAuth.auth.onAuthStateChanged( user => {
+      if (user) {
+        navCtrl.setRoot(MainPage);
+      }
+    }) 
   }
 
   ionViewDidLoad() {
@@ -28,7 +32,10 @@ export class LoginPage {
   }
 
   onLogin() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((result) => {
+
+    this.afAuth.auth.setPersistence(auth.Auth.Persistence.LOCAL)
+    .then(() => this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()))
+    .then((result) => {
 
       this.db.collection("users").doc(result.user.uid).set({
         name: result.user.displayName, awaitingMatch: false, profile: ""
