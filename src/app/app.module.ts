@@ -11,6 +11,8 @@ import { ChatListPage } from '../pages/chat-list/chat-list';
 import { ChatPage } from '../pages/chat/chat';
 import { ComponentsModule } from '../components/components.module';
 
+import { FIREBASE_CONFIG } from './firebase.credentials.ts';
+
 
 @NgModule({
   declarations: [
