@@ -4,6 +4,14 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+// firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+
+
 import { MyApp } from './app.component';
 import { MainPage } from '../pages/main/main';
 import { ProfilePage } from '../pages/profile/profile';
@@ -11,7 +19,7 @@ import { ChatListPage } from '../pages/chat-list/chat-list';
 import { ChatPage } from '../pages/chat/chat';
 import { ComponentsModule } from '../components/components.module';
 
-import { FIREBASE_CONFIG } from './firebase.credentials.ts';
+import { FIREBASE_CONFIG } from './firebase.credentials';
 
 
 @NgModule({
@@ -25,7 +33,12 @@ import { FIREBASE_CONFIG } from './firebase.credentials.ts';
   imports: [
     BrowserModule,
     ComponentsModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(FIREBASE_CONFIG, 'hackatum'),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,6 +51,7 @@ import { FIREBASE_CONFIG } from './firebase.credentials.ts';
   providers: [
     StatusBar,
     SplashScreen,
+
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
