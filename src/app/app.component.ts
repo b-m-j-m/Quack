@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
+import { FCM } from '@ionic-native/fcm';
 
 import { MainPage } from '../pages/main/main';
 @Component({
@@ -13,7 +14,7 @@ import { MainPage } from '../pages/main/main';
 export class MyApp {
   rootPage:any = MainPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, geolocation: BackgroundGeolocation, db: AngularFirestore) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, geolocation: BackgroundGeolocation, db: AngularFirestore, fcm: FCM) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -40,6 +41,17 @@ export class MyApp {
           }, {merge: true});
 
           geolocation.finish();
+        });
+
+        fcm.getToken().then(token => {
+          db.collection('users').doc("kilian").set({
+            messagingToken: token
+          }, {merge: true});
+        });
+        fcm.onTokenRefresh().subscribe(token => {
+          db.collection('users').doc("kilian").set({
+            messagingToken: token
+          }, {merge: true});
         });
     });
   }
