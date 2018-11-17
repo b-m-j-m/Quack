@@ -22,7 +22,7 @@ export class MainPage {
   // 0 -> inactive
   // 1 -> searching for match
   // 2 -> match found
-  public state = 1;
+  public state = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, db: AngularFirestore, auth: AngularFireAuth/*, geolocation: BackgroundGeolocation*/) {
 
@@ -58,7 +58,6 @@ export class MainPage {
   });
 
   }
-
 
   itsamatch(matchedUser) {
 
