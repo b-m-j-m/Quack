@@ -10,33 +10,41 @@ page-chat {
         
         .msg {
             width: 100%;
-            padding: 1em;
+            padding: 0.3em 1em;
+            position: 	relative;
+            display: flex;
+            flex-flow: column nowrap;
         }
 
-        .msg-me .msg-content {
-            background: #777;
+        .msg-me  {
+            right: 0;
+            position: relative;
+        }
+
+        .msg-match  {
             left: 0;
+            position: relative;
         }
 
         
-        .msg-me .msg-content {
-            background: color($colors, primary);
-            right: 0;
+        .msg-me .msg-content{
+            background: #777;
+            border-radius: 1em;
+            color: #fff;
+            float: right;
+        }
 
+        .msg-match .msg-content{
+            background: color($colors, primary);
+            border-radius: 1em;
+            color: #fff;
         }
 
         .msg-content{
             padding: 0.5em;
-            position: absolute;
+            position: relative;
             max-width: 80%;
         }
-
-        .msg-content p {
-            color: white;
-        }
-
-
-
 
     }
     

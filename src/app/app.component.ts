@@ -5,10 +5,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 //import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
-//import { FCM } from '@ionic-native/fcm';
 
-import { MainPage } from '../pages/main/main';
+
 import { LoginPage } from '../pages/login/login';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -44,16 +44,7 @@ export class MyApp {
           geolocation.finish();
         });*/
 
-       /* fcm.getToken().then(token => {
-          db.collection('users').doc("kilian").set({
-            messagingToken: token
-          }, {merge: true});
-        });
-        fcm.onTokenRefresh().subscribe(token => {
-          db.collection('users').doc("kilian").set({
-            messagingToken: token
-          }, {merge: true});
-        });*/
+    
     });
   }
 }
