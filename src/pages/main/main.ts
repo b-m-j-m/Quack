@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 //import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 
 /**
@@ -23,7 +24,7 @@ export class MainPage {
   // 2 -> match found
   public state = 1;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, db: AngularFirestore/*, geolocation: BackgroundGeolocation*/) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, db: AngularFirestore, auth: AngularFireAuth/*, geolocation: BackgroundGeolocation*/) {
 
     events.subscribe('modeChange', (newState) => {
 
@@ -37,9 +38,35 @@ export class MainPage {
       //geolocation.stop();
       }
 
+      if (newState == 1) {
+        db.collection("users").doc(auth.currentUser.uid).collection("matches")
+          .onSnapshot(snapshot => {
+            snapshot.docChanges.filter(c => c.type == "added").forEach(({doc}) => {
+
+              events.publish('modeChange', 2);
+
+              this.itsamatch({
+                id: doc.id,
+                ...doc.data()
+              });
+            });
+          });
+      }
+
       this.state = newState;
 
   });
+
+  }
+
+
+  itsamatch(matchedUser) {
+
+    let name = matchedUser.name;
+    let matchedId = matchedUser.id;
+    let profileURL = matchedUser.profile;
+
+    // ...
 
   }
 

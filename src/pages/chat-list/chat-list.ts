@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ChatPage } from '../chat/chat';
 
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 /**
  * Generated class for the ChatListPage page.
  *
@@ -16,7 +19,16 @@ import { ChatPage } from '../chat/chat';
 })
 export class ChatListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public auth: AngularFireAuth) {
+
+    return this.db.collection("users").doc(auth.currentUser.uid).collection("matches")
+      .onSnapshot(snapshot => {
+        let chats = snapshot.docs.map(d => ({
+          id: d.id,
+          ...d.data()
+        }))
+        this.updateChatList(chats);
+      })
   }
 
   ionViewDidLoad() {
@@ -25,6 +37,10 @@ export class ChatListPage {
 
   onOpenChat() {
     this.navCtrl.push(ChatPage);
+  }
+
+  updateChatList(chats) {
+    // ...
   }
 
 }

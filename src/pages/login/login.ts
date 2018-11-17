@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -15,11 +18,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public afAuth: AngularFireAuth) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+  }
+
+  onLogin() {
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(function(result) {
+
+      var token = result.credential.accessToken;
+      var user = result.user;
+
+      console.log(token, user);
+
+    }).catch(function(error) {
+      console.log(error);
+    });
   }
 
 }
