@@ -16,38 +16,23 @@
 <ion-content padding>
 
  <div class="messages">
-     <div class="msg">
-      <div class="msg-me">
-        <div class="msg-content">
-          <p>Hey :) Sitze im vordersten Wagen.</p>
-        </div>
-    </div>
-  </div>
-    
-    <div class="msg ">
-      <div class="msg-match">
-        <div class="msg-content">
-           <p>Hey! Cool, ich auch!</p>
-        </div>
-    </div>
-  </div>
+  
+    <div *ngFor="let msg of messages" class="msg">
 
-    <div class="msg ">
-      <div class="msg-me">
+      <div *ngIf="msg.sender != withUser" class="msg-me">
         <div class="msg-content">
-           <p>Glaube, ich sehe dich!</p>
+          <p>{{msg.body}}</p>
         </div>
-    </div>
-  </div>
-
-    <div class="msg ">
-      <div class="msg-match">
+      </div>
+  
+      <div *ngIf="msg.sender == withUser" class="msg-match">
         <div class="msg-content">
-          <p>Ich dich auch! Ich komme vor.</p>
+            <p>{{msg.body}}</p>
         </div>
-    </div>
-  </div>
+      </div>
+      <P class="msg-time">{{msg.time}}</P>
 
+    </div>
 
   </div>
 
