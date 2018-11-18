@@ -31,7 +31,7 @@ export class ChatPage {
     db.collection("messages").snapshotChanges()
       .subscribe(snapshots => {
         console.log(snapshots);
-        let messages = snapshots.map(s => s.payload.doc.data()).filter(m => m.chatId == chatId).sort((a, b) => a.time.seconds - b.time.seconds)
+        let messages = snapshots.map(s => <any>s.payload.doc.data()).filter(m => m.chatId == chatId).sort((a, b) => a.time.seconds - b.time.seconds)
         this.updateMessages(messages.map(m => ({...m, time: new Date(m.time.seconds*1000)})).slice(0, 100));
       })
   }
