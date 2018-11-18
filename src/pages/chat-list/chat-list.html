@@ -19,7 +19,7 @@
 
     <ion-item *ngFor="let chat of chats" (click)="onOpenChat(chat.id)">
       <ion-avatar item-start>
-        <img src="assets/imgs/avatar-horst.jpg">
+        <img src={{chat.profile}}>
       </ion-avatar>
       <h2>{{chat.name}}</h2>
       <p>{{chat.lastMessage}}</p>

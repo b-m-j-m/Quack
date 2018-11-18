@@ -14,6 +14,6 @@
 
   <search-for-match-disabled *ngIf="state == 0"></search-for-match-disabled>
   <search-for-match *ngIf="state == 1"></search-for-match>
-  <match-found *ngIf="state == 2" [matchedUser]="matchedUser"></match-found>
+  <match-found *ngIf="state == 2" [matchedUser]="matchedUser" [user]="user"></match-found>
 
 </ion-content>

@@ -24,11 +24,22 @@ export class MainPage {
   // 2 -> match found
   public state = 0;
   public matchedUser;
+  public user;
   constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, db: AngularFirestore, afAuth: AngularFireAuth/*, geolocation: BackgroundGeolocation*/) {
 
     db.collection("users").doc(afAuth.auth.currentUser.uid).set({
       awaitingMatch: false
     }, {merge: true});
+
+    db.collection("users").doc(afAuth.auth.currentUser.uid).get()
+      .subscribe(snapshot => {
+        let data = snapshot.data();
+        this.user = {
+          id: snapshot.id,
+          name: data.name,
+          profile: data.profile.length > 1 ? data.profile : 'assets/imgs/avatar-horst.jpg'
+        }
+      });
 
     events.subscribe('modeChange', (newState) => {
 
@@ -45,9 +56,17 @@ export class MainPage {
       if (newState == 1) {
         db.collection("users").doc(afAuth.auth.currentUser.uid).collection("matchings").snapshotChanges()
           .subscribe(snapshots => {
-            console.log(snapshots);
             snapshots
-              .map(s => (<any>{id: s.payload.doc.id, ...s.payload.doc.data()}))
+              .map(s => {
+                let data = s.payload.doc.data();
+
+                return <any>{
+                  id: s.payload.doc.id,
+                  name: data.name,
+                  new: data.new,
+                  profile: data.profile && data.profile.length > 1 ? data.profile : 'assets/imgs/avatar-horst.jpg'
+                };
+              })
               .filter(s => s.new)
               .forEach((doc) => {
 

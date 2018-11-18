@@ -1,10 +1,10 @@
 <!-- Generated template for the MatchFoundComponent component -->
 <div>
     <p class="itsamatch">It's a match!</p>
-    <img class="match-profile first-profile" src="assets/imgs/avatar-peter.png" />
-    <img class="match-profile second-profile" src="assets/imgs/avatar-jens.png" />
+    <img class="match-profile first-profile" src={{matchedUser.profile}} />
+    <img class="match-profile second-profile" src={{user.profile}} />
     <div class="chat-button-container">
-      <button (click)="onStartChat()" ion-button icon-right round color="primary">
+      <button (click)="onStartChat(matchedUser.id)" ion-button icon-right round color="primary">
           start chat with {{matchedUser.name}}
           <ion-icon name="send"></ion-icon>
       </button>

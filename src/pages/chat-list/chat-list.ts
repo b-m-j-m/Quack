@@ -24,10 +24,17 @@ export class ChatListPage {
 
     this.db.collection("users").doc(afAuth.auth.currentUser.uid).collection("matchings").snapshotChanges()
       .subscribe(snapshots => {
-        let chats = snapshots.map(s => <any>s.payload.doc).map(d => ({
-          id: d.id,
-          ...d.data()
-        }))
+        let chats = snapshots.map(s => {
+          let doc = s.payload.doc;
+          let data = doc.data();
+          console.log(doc.id, data);
+          return {
+            id: doc.id,
+            name: data.name,
+            profile: data.profile && data.profile.length > 0 ? data.profile : 'assets/imgs/avatar-horst.jpg'
+          }
+        })
+        console.log("Chats", chats);
         this.updateChatList(chats);
       })
   }

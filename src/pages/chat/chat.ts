@@ -26,12 +26,14 @@ export class ChatPage {
 
     let userId = afAuth.auth.currentUser.uid;
     this.withUser = navParams.data;
+    console.log(this.withUser);
 
     let chatId = userId < this.withUser ? `${userId}-${this.withUser}` : `${this.withUser}-${userId}`;
+    console.log(chatId);
     db.collection("messages").snapshotChanges()
       .subscribe(snapshots => {
-        console.log(snapshots);
         let messages = snapshots.map(s => <any>s.payload.doc.data()).filter(m => m.chatId == chatId).sort((a, b) => a.time.seconds - b.time.seconds)
+        console.log(messages);
         this.updateMessages(messages.map(m => ({...m, time: new Date(m.time.seconds*1000)})).slice(0, 100));
       })
   }
@@ -49,7 +51,7 @@ export class ChatPage {
     let userId = this.afAuth.auth.currentUser.uid;
 
     let chatId = userId < this.withUser ? `${userId}-${this.withUser}` : `${this.withUser}-${userId}`;
-
+    console.log(this.withUser, userId, chatId);
     let message = {
       body: this.newMessage,
       sender: userId,
@@ -58,6 +60,7 @@ export class ChatPage {
     }
 
     this.db.collection("messages").add(message);
+    this.messages.push(message);
 
     this.newMessage = "";
 

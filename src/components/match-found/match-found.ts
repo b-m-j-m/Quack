@@ -16,13 +16,14 @@ import { Events } from 'ionic-angular';
 export class MatchFoundComponent {
 
   text: string;
-  @Input() public matchedUser;
+  @Input() public matchedUser = {};
+  @Input() public user = {};
   constructor( public navCtrl: NavController, public events: Events) {
 
   }
 
-  onStartChat() {
+  onStartChat(id) {
     this.events.publish('modeChange', 0);
-    this.navCtrl.push(ChatPage);
+    this.navCtrl.push(ChatPage, id);
   }
 }
