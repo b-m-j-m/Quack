@@ -16,7 +16,7 @@ import { Events } from 'ionic-angular';
 export class MatchFoundComponent {
 
   text: string;
-  @Input() matchedUser;
+  @Input() public matchedUser;
   constructor( public navCtrl: NavController, public events: Events) {
 
   }
