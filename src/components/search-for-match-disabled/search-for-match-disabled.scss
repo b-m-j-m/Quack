@@ -6,6 +6,19 @@ search-for-match-disabled {
     height: 100%;
     background: color($colors, light);
 
+    .disabled-icon {
+        position: absolute;
+        top: 15%;
+        left: 0%;
+        width: 100%;
+        text-align: center;
+
+        img {
+            height: 60vw;
+            width: 60w;
+        }
+    }
+
     .information-text {
         font-weight: bold;
         text-align: center;
