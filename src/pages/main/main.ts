@@ -26,6 +26,10 @@ export class MainPage {
   public matchedUser;
   constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, db: AngularFirestore, afAuth: AngularFireAuth/*, geolocation: BackgroundGeolocation*/) {
 
+    db.collection("users").doc(afAuth.auth.currentUser.uid).set({
+      awaitingMatch: false
+    }, {merge: true});
+
     events.subscribe('modeChange', (newState) => {
 
       db.collection("users").doc(afAuth.auth.currentUser.uid).set({
@@ -42,15 +46,16 @@ export class MainPage {
         db.collection("users").doc(afAuth.auth.currentUser.uid).collection("matchings").snapshotChanges()
           .subscribe(snapshots => {
             console.log(snapshots);
-            snapshots.filter(c => c.type == "added").forEach(({payload}) => {
+            snapshots
+              .map(s => (<any>{id: s.payload.doc.id, ...s.payload.doc.data()}))
+              .filter(s => s.new)
+              .forEach((doc) => {
 
-              this.matchedUser = {
-                id: payload.doc.id,
-                ...payload.doc.data()
-              };
+                db.collection("users").doc(afAuth.auth.currentUser.uid).collection("matchings").doc(doc.id).update({new: false});
 
-              events.publish('modeChange', 2);
-            });
+                this.matchedUser = doc;
+                events.publish('modeChange', 2);
+              });
           });
       }
 

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ChatPage } from '../../pages/chat/chat';
+import { Events } from 'ionic-angular';
 
 /**
  * Generated class for the MatchFoundComponent component.
@@ -16,11 +17,12 @@ export class MatchFoundComponent {
 
   text: string;
   @Input() matchedUser;
-  constructor( public navCtrl: NavController) {
-    
+  constructor( public navCtrl: NavController, public events: Events) {
+
   }
 
   onStartChat() {
+    this.events.publish('modeChange', 0);
     this.navCtrl.push(ChatPage);
   }
 }
