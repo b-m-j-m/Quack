@@ -38,9 +38,9 @@
 
   <div class="message-form">
 
-     <ion-input type="text" placeholder="Start typing ..."></ion-input>
+     <ion-input type="text" [(ngModel)]="newMessage" placeholder="Start typing ..."></ion-input>
 
-    <button ion-button icon-only round> <ion-icon name="send"></ion-icon></button>   
+    <button (click)="sendMessage()" ion-button icon-only round> <ion-icon name="send"></ion-icon></button>   
 
   </div>
 

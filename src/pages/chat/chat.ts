@@ -20,6 +20,8 @@ export class ChatPage {
 
   public withUser;
   public messages;
+  public newMessage = "";
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFirestore, public afAuth: AngularFireAuth) {
 
     let userId = afAuth.auth.currentUser.uid;
@@ -28,7 +30,7 @@ export class ChatPage {
     let chatId = userId < this.withUser ? `${userId}-${this.withUser}` : `${this.withUser}-${userId}`;
     let chat = db.collection("messages").get()
       .subscribe(snapshots => {
-        let messages = snapshots.docs.map(d => d.data()).sort((a, b) => a.time < b.time).slice(0, 100)
+        let messages = snapshots.docs.map(d => d.data()).sort((a, b) => new Date(a.time).valueOf() - new Date(b.time).valueOf()).slice(0, 100)
         this.updateMessages(messages);
       })
   }
@@ -41,20 +43,22 @@ export class ChatPage {
     this.messages = messages;
   }
 
-  sendMessage(text) {
+  sendMessage() {
 
     let userId = this.afAuth.auth.currentUser.uid;
 
     let chatId = userId < this.withUser ? `${userId}-${this.withUser}` : `${this.withUser}-${userId}`;
 
     let message = {
-      body: text,
+      body: this.newMessage,
       sender: userId,
       time: new Date(),
       chatId
     }
 
     this.db.collection("messages").add(message);
+
+    this.newMessage = "";
 
   }
 
