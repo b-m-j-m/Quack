@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ChatPage } from '../../pages/chat/chat';
 
@@ -15,10 +15,9 @@ import { ChatPage } from '../../pages/chat/chat';
 export class MatchFoundComponent {
 
   text: string;
-
+  @Input() matchedUser;
   constructor( public navCtrl: NavController) {
-    console.log('Hello MatchFoundComponent Component');
-    this.text = 'Hello World';
+    
   }
 
   onStartChat() {
