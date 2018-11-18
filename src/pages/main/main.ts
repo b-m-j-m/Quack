@@ -28,7 +28,7 @@ export class MainPage {
 
     events.subscribe('modeChange', (newState) => {
 
-      db.collection("users").doc("kilian").set({
+      db.collection("users").doc(afAuth.auth.currentUser.uid).set({
         awaitingMatch: newState == 1
       }, {merge: true});
 
