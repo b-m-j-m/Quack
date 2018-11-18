@@ -1,3 +1,18 @@
 page-profile {
 
+  .profile_wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 100px;
+      margin-bottom: 2em;
+    }
+  }
+
 }
