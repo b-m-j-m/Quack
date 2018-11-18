@@ -24,7 +24,7 @@ export class MainPage {
   // 2 -> match found
   public state = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, db: AngularFirestore, auth: AngularFireAuth/*, geolocation: BackgroundGeolocation*/) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, db: AngularFirestore, afAuth: AngularFireAuth/*, geolocation: BackgroundGeolocation*/) {
 
     events.subscribe('modeChange', (newState) => {
 
@@ -39,9 +39,9 @@ export class MainPage {
       }
 
       if (newState == 1) {
-        db.collection("users").doc(auth.currentUser.uid).collection("matches")
-          .onSnapshot(snapshot => {
-            snapshot.docChanges.filter(c => c.type == "added").forEach(({doc}) => {
+        db.collection("users").doc(afAuth.auth.currentUser.uid).collection("matches").get()
+          .subscribe(snapshot => {
+            snapshot.docChanges().filter(c => c.type == "added").forEach(({doc}) => {
 
               events.publish('modeChange', 2);
 

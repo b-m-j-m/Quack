@@ -12,36 +12,38 @@
 
 </ion-header>
 
-
 <ion-content padding>
 
  <div class="messages">
-  
+
     <div *ngFor="let msg of messages" class="msg">
 
       <div *ngIf="msg.sender != withUser" class="msg-me">
         <div class="msg-content">
-          <p>{{msg.body}}</p>
+          {{msg.body}}
         </div>
+        <span class="msg-time">{{msg.time.getHours()}}:{{msg.time.getMinutes()}}</span>
       </div>
-  
+
       <div *ngIf="msg.sender == withUser" class="msg-match">
         <div class="msg-content">
-            <p>{{msg.body}}</p>
+            {{msg.body}}
         </div>
+        <span class="msg-time">{{msg.time.getHours()}}:{{msg.time.getMinutes()}}</span>
       </div>
-      <P class="msg-time">{{msg.time}}</P>
 
     </div>
 
   </div>
 
-  <div class="message-form">
-
-     <ion-input type="text" [(ngModel)]="newMessage" placeholder="Start typing ..."></ion-input>
-
-    <button (click)="sendMessage()" ion-button icon-only round> <ion-icon name="send"></ion-icon></button>   
-
-  </div>
 
 </ion-content>
+
+
+<div class="message-form">
+
+   <ion-input type="text" [(ngModel)]="newMessage" placeholder="Start typing ..."></ion-input>
+
+  <button (click)="sendMessage()" ion-button icon-only round> <ion-icon name="send"></ion-icon></button>
+
+</div>

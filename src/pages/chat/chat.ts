@@ -28,10 +28,11 @@ export class ChatPage {
     this.withUser = navParams.data;
 
     let chatId = userId < this.withUser ? `${userId}-${this.withUser}` : `${this.withUser}-${userId}`;
-    let chat = db.collection("messages").get()
+    db.collection("messages").snapshotChanges()
       .subscribe(snapshots => {
-        let messages = snapshots.docs.map(d => d.data()).sort((a, b) => new Date(a.time).valueOf() - new Date(b.time).valueOf()).slice(0, 100)
-        this.updateMessages(messages);
+        console.log(snapshots);
+        let messages = snapshots.map(s => s.payload.doc.data()).filter(m => m.chatId == chatId).sort((a, b) => a.time.seconds - b.time.seconds)
+        this.updateMessages(messages.map(m => ({...m, time: new Date(m.time.seconds*1000)})).slice(0, 100));
       })
   }
 
